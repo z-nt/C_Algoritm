@@ -1,0 +1,72 @@
+1-find the minimum number in an array
+2-find the maximum number in an array
+3-count the occurences of a value in an array
+4-reverse an array
+5-check if a string is a palingdrome
+6-sum the valus in an array 
+7-compute the average of an array
+8-conver celsius to fahrenheit
+9-computing the fibonacci sequence
+10-counting the vowels in a string
+11-string append with dynamic memory allocation
+12-dice roll simulator
+13-flip a strings lowercase characters to uppercase
+14-create a copy of an array
+15-determine if a year is a leep year
+16-hello world
+17-vector addition
+18-dot product
+19-counting a word in a string
+20-removing charecter from a string
+21-conver binary to decimal
+22-replace a charecter in a string
+23-area of circle
+24-infinite input buffer
+25-converting kilometers to miles
+26-string format validation
+27-output a trangle of stars
+28-remove all vowels from a string
+29-check if array are disjoint
+30-rotate an array left
+31-rotate an array to right
+32-merge two sorted arrays
+33-count non-repeating array
+34-manually find the length of a string
+35-program that prints its own code 
+36-bubble sort
+37-sum the frist n natural number using recursion
+38-trim leading whitespace string charecters
+39-remove trailing whitespace string charecters
+40-reverse the word in a string
+41-count the words in a string
+42-find length of longest word in a string
+43-find length of smallest word in a string
+44-insertion sort
+45-print unique elements of an array
+46-compute standard deviation
+47-count the panctuation marks in a string
+48-check if words are anagrams
+49-use recursion to print string in reverse
+50-print first unique charecter in a string
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
