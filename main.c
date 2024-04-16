@@ -1,14 +1,10 @@
 #include <stdio.h>
-///revers an array
-void revers_arr(int arr[],int length){
-    int temp = arr[0];
-    for(int i = (length - 1) ; i >= 0    ; i--){
-            temp = arr[length  -  1];
-            temp = arr[i];
-            arr[length - i - 1] = temp;
-    }
+#include <string.h>
+#include <stdbool.h>
 
-}
+///conver celsuis to fahrenheit
+
+
 
 
 int main (void){
@@ -16,14 +12,10 @@ int main (void){
 int numbers[] = {7,9,6,4,1,2,3,8,10,5};
 int numbers_2[] = {1,2,3,4,5,6,7,8,9,10};
 
- revers_arr(numbers_2,10);
 
-for(int i = 0 ; i < 10 ; i ++){
-    printf("arr[%d]=%d\n", i ,numbers_2[i]);
-}
-    return 0;
-}
 
+return 0 ;
+}
 
 
 /////// find the minmum number in array
@@ -57,8 +49,50 @@ int sum_valus(int arr[],int length){
 }
 //int result = sum_valus(numbers,10);
 
+///revers an array
+void revers_arr(int arr[],int length){
+    int temp = arr[0];
+    for(int i = (length / 2) ; i >= 0    ; i--){
+            temp = arr[i ];
+             arr[i] = arr[length - i - 1];
+            arr[length - i - 1 ] = temp;
+    }
+
+}
 
 
+
+
+///check if a string is palingdrome
+
+void string_palingDrome( char *s){
+ int slen = strlen(s);
+ for(int i = 0 ; i < (slen /2 )  ; i++ ){
+        if(s[i] == s[slen-i-1]){
+            printf("string is palingDrome\n");
+        }else{
+            printf("is not\n");
+        }
+ }
+}
+
+
+
+//compute of avrage an array 
+
+int avrage_array(int arr[], int length){
+int sum= 0;
+double average = 0 ;
+
+    for(int i = 0 ; i < length ; i++){
+        sum = sum + arr[i];
+    }
+    printf("%d\n",sum);
+   
+    average = sum / length;
+
+    return average;
+}
 
 
 
