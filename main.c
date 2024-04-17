@@ -2,7 +2,20 @@
 #include <string.h>
 #include <stdbool.h>
 
-///conver celsuis to fahrenheit
+///counting the vowels in a string
+
+int count_vowels(char *s){
+        int slen = strlen(s);
+        int Counter = 0;
+        char vowels [] = {'A','U','I','E','B'};
+        for(int i = 0 ; i < slen ; i ++){
+            if(s[i] == vowels[i]) Counter++;
+        }
+        return Counter;
+}
+
+
+
 
 
 
@@ -11,6 +24,10 @@ int main (void){
 
 int numbers[] = {7,9,6,4,1,2,3,8,10,5};
 int numbers_2[] = {1,2,3,4,5,6,7,8,9,10};
+char *string = "kian nosratian";
+ 
+ int result = count_vowels(string);
+ printf("%d",result);
 
 
 
@@ -78,6 +95,10 @@ void string_palingDrome( char *s){
 
 
 
+
+
+
+
 //compute of avrage an array 
 
 int avrage_array(int arr[], int length){
@@ -96,3 +117,44 @@ double average = 0 ;
 
 
 
+
+///conver celsuis to fahrenheit
+
+void celsuis_to_fahrenheit(){
+    double c;
+    double F;
+    double start , step , end;
+
+    printf("Enter the C temp:\n");
+    scanf("%lf",&c);
+
+
+    printf("Enter start Point:\n");
+    scanf("%lf",&start);
+
+    printf("Enter end point:\n");
+    scanf("%lf",&end);
+
+    printf("Enter the step: \n");
+    scanf("%lf",&step);
+
+    F = (c * 1.8 ) + 35;
+
+    for(c = start ; c <= end; c += step){
+        printf("F:%2.lf               C:%2.lf\n",F,c);    
+    }
+}
+//computing the fibonacci sequence
+int comput_fibo(int length){
+
+int num1 = 1;
+int num2 = 2;
+int fib;
+
+    for(int i = 0 ; i < length ; i++){
+            fib = num1 + num2;
+            num1 = num2;
+            num2 = fib;
+    }
+    return fib;
+}
