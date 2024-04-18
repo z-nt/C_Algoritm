@@ -1,6 +1,63 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include <stdlib.h>
+#include <time.h>
+
+
+
+
+
+
+
+
+int main (void){
+
+int numbers[] = {7,9,6,4,1,2,3,8,10,5};
+int numbers_2[] = {1,2,3,4,5,6,7,8,9,10};
+
+    
+
+
+return 0 ;
+}
+
+// dice roll simulator
+
+int dice_roll(int dice){
+    srand(time(NULL));
+    int roll = rand() %  dice ;
+    printf("%d",roll);
+
+}
+
+
+//string append with dynamic memory allocation
+
+  char string_append(char *string , char *sequens){
+       
+    int slen = strlen(string);
+    int sequenlen = strlen(sequens);
+    int size = sequenlen + slen + 1;
+
+        // printf("%d\n",slen);
+        // printf("%d\n",sequenlen);
+        // printf("%d\n",size);
+
+
+    char *s = calloc(size , sizeof(char));
+    
+
+    for(int i = 0 ; i <  size ; i++){
+        s[i] = sequens[i]; 
+    }
+    for( int j = 0 ; j < size ; j++){
+        s[j  + sequenlen] = string[j];
+        s[j] = '\0';
+    }
+    free(s);
+    return *s;
+}
 
 ///counting the vowels in a string
 
@@ -14,25 +71,6 @@ int count_vowels(char *s){
         return Counter;
 }
 
-
-
-
-
-
-
-int main (void){
-
-int numbers[] = {7,9,6,4,1,2,3,8,10,5};
-int numbers_2[] = {1,2,3,4,5,6,7,8,9,10};
-char *string = "kian nosratian";
- 
- int result = count_vowels(string);
- printf("%d",result);
-
-
-
-return 0 ;
-}
 
 
 /////// find the minmum number in array
@@ -94,11 +132,6 @@ void string_palingDrome( char *s){
 }
 
 
-
-
-
-
-
 //compute of avrage an array 
 
 int avrage_array(int arr[], int length){
@@ -114,8 +147,6 @@ double average = 0 ;
 
     return average;
 }
-
-
 
 
 ///conver celsuis to fahrenheit
