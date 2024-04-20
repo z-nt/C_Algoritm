@@ -5,22 +5,58 @@
 #include <time.h>
 
 
+void concat(char a[],char b [],char c[], int n1, int n2);
+
+char *string_append(char *string , char *sequens){
+       
+    int slen = strlen(string);
+    int sequenlen = strlen(sequens);
+    int size = sequenlen + slen + 1;
+        // printf("%d\n",slen);
+        // printf("%d\n",sequenlen);
+        // printf("%d\n",sizcvc,cve);
 
 
-
-
-
-
-int main (void){
-
-int numbers[] = {7,9,6,4,1,2,3,8,10,5};
-int numbers_2[] = {1,2,3,4,5,6,7,8,9,10};
-
+    char *s = malloc(size * 4);
     
 
-
-return 0 ;
+    for(int i = 0 ; i <  size ; i++){
+        s[i] = string[i]; 
+    }
+    for( int j = 0 ; j < size ; j++){
+        s[j  + sequenlen] = sequens[j];
+    }
+    s[size + 1] = '\0';
+    // free(s);
+    return s;
 }
+
+int main (void) {
+    char *s = "mamad";
+    char *b = " kian";
+    char *c = string_append(s,b);
+    printf("%s",c);
+    return 0;
+}
+
+void concat(char a[],char b [],char c[], int n1, int n2) {
+
+    int i = 0;
+    for (i; i < n1 ; i++){
+        c[i] = a[i];
+    }
+    for(int j = 0 ; j < n2 ; j++){
+        printf("%d\n",i);
+        c[i++] = b[j];
+        printf("%d\n",i);
+    }
+    c[i] = '\0';
+}
+
+
+
+
+
 
 // dice roll simulator
 
@@ -34,30 +70,7 @@ int dice_roll(int dice){
 
 //string append with dynamic memory allocation
 
-  char string_append(char *string , char *sequens){
-       
-    int slen = strlen(string);
-    int sequenlen = strlen(sequens);
-    int size = sequenlen + slen + 1;
 
-        // printf("%d\n",slen);
-        // printf("%d\n",sequenlen);
-        // printf("%d\n",size);
-
-
-    char *s = calloc(size , sizeof(char));
-    
-
-    for(int i = 0 ; i <  size ; i++){
-        s[i] = sequens[i]; 
-    }
-    for( int j = 0 ; j < size ; j++){
-        s[j  + sequenlen] = string[j];
-        s[j] = '\0';
-    }
-    free(s);
-    return *s;
-}
 
 ///counting the vowels in a string
 
