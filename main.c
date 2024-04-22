@@ -11,15 +11,43 @@
 
 
 
+
+
+
 int main (void) {
-int  numbers[] = {4,7,1,2,5,6,8,9,3};
-int length = 9;
+int  numbers[] = {4,4,4,5,5,2,2,1,1,2,3,4,5,7,7,7};
+int length = 16;
   
+
+
 
     return 0;
 }
 
 
+/// counting sort array
+void counting_sort(int arr[], int n){
+    int max_val = arr[0];
+    for(int i = 1 ; i < n ; i++){
+        if(arr[i] > max_val ) max_val = arr[i];
+
+    int count[max_val + 1];
+
+    for(int i = 0;  i < n ; i++){
+        count[i] = 0;
+    }
+    for(int i = 0;i <= max_val;i++){
+        count[arr[i]]++;
+    }
+     int index = 0;
+    for(int i = 0; i <= max_val; i++) {
+        while(count[i] > 0) {
+            arr[index++] = i;
+            count[i]--;
+        }
+    }
+}
+}
 // quicke sort array 
 
 int partition(int arr[], int low , int high){
