@@ -3,41 +3,162 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <time.h>
+#define swaap true
+#define notswaap false
 
 
-void concat(char a[],char b [],char c[], int n1, int n2);
-
-char *string_append(char *string , char *sequens){
-       
-    int slen = strlen(string);
-    int sequenlen = strlen(sequens);
-    int size = sequenlen + slen + 1;
-        // printf("%d\n",slen);
-        // printf("%d\n",sequenlen);
-        // printf("%d\n",sizcvc,cve);
 
 
-    char *s = malloc(size * 4);
-    
 
-    for(int i = 0 ; i <  size ; i++){
-        s[i] = string[i]; 
-    }
-    for( int j = 0 ; j < size ; j++){
-        s[j  + sequenlen] = sequens[j];
-    }
-    s[size + 1] = '\0';
-    // free(s);
-    return s;
-}
 
 int main (void) {
-    char *s = "mamad";
-    char *b = " kian";
-    char *c = string_append(s,b);
-    printf("%s",c);
+int  numbers[] = {4,7,1,2,5,6,8,9,3};
+int length = 9;
+  
+
     return 0;
 }
+
+
+// quicke sort array 
+
+int partition(int arr[], int low , int high){
+    int pivot = arr[high];
+    int i = low - 1;
+
+    for(int j = low; j < high ; j++){
+            if(arr[j]  <= pivot){
+                i++;
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+    }
+    int temp = arr[i + 1];
+    arr[i+1] = arr[high];
+    arr[high] = temp;
+    return i + 1;
+}
+
+void quicksort(int arr[] , int low , int high){
+    if(low < high){
+        int pivoitIndex = partition(arr,low,high);
+        quicksort(arr,low,pivoitIndex -1 );
+        quicksort(arr,pivoitIndex + 1,high);
+    }
+
+
+}
+
+/// insert sort
+void inserting_sort(int *arr , int n){
+
+    for(int i = 1 ; i < n ; i++){
+        int insertIndex = i;
+        int currentvalue = arr[i];
+        int j = i - 1;
+
+        while( j >= 0 && arr[j] > currentvalue){
+            arr[j+1] = arr[j];
+            insertIndex = j;
+            j--;
+        }
+        arr[insertIndex]= currentvalue;
+    }
+    for(int i = 0 ; i < n ; i++){
+        printf("arr[%d]=%d\n",i , arr[i]);
+    }
+}
+
+
+
+/// slection sort array with swap values
+
+void selection_sort_swap(int *arr , int n){
+    for(int i = 0 ; i < n-1 ; i++){
+      int min_index = i;
+        for(int j = i + 1; j < n ; j++){
+            if(arr[j] < arr[min_index]){
+                min_index = j;
+            }
+        }     
+        int temp = arr[i];
+        arr[i] = arr[min_index];
+        arr[min_index] = temp;
+
+    }
+    printf("sorted array: ");
+    for(int i = 0 ; i < n ; i++){
+        printf("%d ",arr[i]);
+    }
+}
+
+
+
+/// slection sort array
+
+void selection_sort(int *arr , int n){
+    for(int i = 0 ; i < n-1 ; i++){
+      int min_index = i;
+        for(int j = i + 1; j < n ; j++){
+            if(arr[j] < arr[min_index]){
+                min_index = j;
+            }
+        }     
+        int min_value = arr[min_index];
+        for(int k = min_index ; k > i ; k--){
+            arr[k] = arr[k - 1];
+        }
+        arr[i] = min_value;
+    }
+    printf("sorted array: ");
+    for(int i = 0 ; i < n ; i++){
+        printf("%d ",arr[i]);
+    }
+}
+
+
+
+
+
+
+/// bubble sort in
+void bubble_sort(int *arr , int n){
+    for(int i = 0 ; i < n-1 ; i++){
+        swaap;
+        for(int j = 0 ; j < (n-i-1); j++){
+                if( arr[j] > arr[j+1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j+1];
+                    arr[j+1] = temp;
+                }
+        }
+
+    }
+for(int i = 0 ; i < n ; i++){
+    printf("arr[%d]=%d\n",i,arr[i]);
+}
+
+}
+
+
+//Search, insert and delete in an unsorted array
+
+void edit_arr(int arr[],int length);
+
+
+void edit_arr(int arr[], int length){
+
+int num = 10;
+
+int temp = arr[0];
+
+    for(int i = 0  ; i < length ; i++){
+        if (arr[i] != num) arr[length + 1] = num;
+    }
+
+}
+
 
 void concat(char a[],char b [],char c[], int n1, int n2) {
 
@@ -55,6 +176,31 @@ void concat(char a[],char b [],char c[], int n1, int n2) {
 
 
 
+// void concat(char a[],char b [],char c[], int n1, int n2);
+
+// char *string_append(char *string , char *sequens){
+       
+//     int slen = strlen(string);
+//     int sequenlen = strlen(sequens);
+//     int size = sequenlen + slen + 1;
+//         // printf("%d\n",slen);
+//         // printf("%d\n",sequenlen);
+//         // printf("%d\n",sizcvc,cve);
+
+
+//     char *s = malloc(size * 4);
+    
+
+//     for(int i = 0 ; i <  size ; i++){
+//         s[i] = string[i]; 
+//     }
+//     for( int j = 0 ; j < size ; j++){
+//         s[j  + sequenlen] = sequens[j];
+//     }
+//     s[size + 1] = '\0';
+//     // free(s);
+//     return s;
+// }
 
 
 
