@@ -3,11 +3,6 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <time.h>
-#define swaap true
-#define notswaap false
-
-
-
 
 
 
@@ -15,13 +10,168 @@
 
 
 int main (void) {
-int  numbers[] = {4,4,4,5,5,2,2,1,1,2,3,4,5,7,7,7};
-int length = 16;
-  
+
 
 
 
     return 0;
+}
+
+
+
+/// binary search 
+int binarySearch(int arr[],int size,int target){
+    int left = 0;
+    int right = size - 1 ;
+
+    while(left <= right){
+        int mid = (left + right) / 2;
+        if(arr[mid] == target){
+            return mid;
+        }
+        if(arr[mid] < target){
+            left = mid + 1;
+        }else{
+            right = mid - 1;
+        }
+    }
+    return -1 ;
+}
+//int target = 7;
+// int result = binarySearch(numbers,length,target);
+
+// if( result != -1){
+//     printf("value %d is found index%d\n", target,result);
+// }else{
+//     printf("value %d not found\n" , target);
+// }
+
+
+/////liner search 
+
+int linerSearch(int arr[],int size , int targetVal){
+    for(int i = 0 ; i < size ; i++){
+        if(arr[i] == targetVal){
+            return i;
+        }
+    }
+    return -1;
+}
+
+
+
+/// merged sort without recursion
+void merge(double left [] , int leftSize , double right [] , int rightSize,double result[])
+{
+    int i = 0;
+    int j = 0;
+    int k = 0;
+
+        while( i < leftSize && j < rightSize){
+            if(left[i] < right[j]){
+                result[k++] = left[i++];
+            }else{
+                result[k++] = right[j++];
+            }
+
+        }
+            while(i < leftSize){
+            result[k++] = left[i++];
+        }
+            while(j < rightSize){
+            result[k++] = right[j++];
+        }
+}
+
+void mergeSort_withoutR(double arr[], int length){
+    
+    int step = 1;
+    
+    while (step < length){
+        for(int i = 0 ; i < length ; i += 2 * step){
+            int leftSize = step;
+            int rightSize = step;
+            if(i + step >= length) leftSize = length - i;
+            if(i + 2 *step >= length )rightSize = length - i - step;
+
+            double left[leftSize];
+            double right[rightSize];
+
+            for(int j = 0 ; j < leftSize ; j++){
+                left[j] = arr[i + j];
+            }
+            for(int j = 0 ; j < rightSize ; j++){
+                right[j] = arr[i + step + j];
+            }
+
+            double merged[leftSize + rightSize];
+            merge(left,leftSize,right , rightSize,merged);
+
+            for(int j = 0 ; j < leftSize + rightSize ; j++){
+                arr[i + j] = merged[j];
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+////merg to array with recarsiun
+
+void mergeE(double arr[], int start , int mid,int end){
+    int i , j ,k;
+    int n1 = mid - start + 1;
+    int n2 = end - mid;
+
+    double left[n1],right[n2];
+
+    for(i = 0 ; i < n1 ; i++)
+        left[i] = arr[start + i];
+    for(j=0 ;  j < n2;j++)
+        right[j] = arr[mid + 1 + j];
+    
+    i= 0 ;
+    j = 0 ;
+    k =start;
+
+    while (i < n1 && j < n2)
+    {
+        if (left[i] <= right[j])
+        {
+            arr[k] = left[i];
+            i++;
+        }else{
+            arr[k] = right[j];
+            j++;
+        }
+        k++;
+    }
+    while(i < n1 ){
+        arr[k] = left[i];
+        i++;
+        k++;
+    }
+    while(j < n2){
+        arr[k] = right[j];
+        j++;
+        k++;
+    }
+}
+
+
+
+
+void mergeSort(double arr[], int start , int end){
+    if(start < end){
+        int mid = (start + end) / 2 ;
+        mergeSort(arr,start,mid);
+        mergeSort(arr,mid + 1 , end);
+      //  merge(arr, start , mid , end);
+    }
 }
 
 
@@ -153,7 +303,6 @@ void selection_sort(int *arr , int n){
 /// bubble sort in
 void bubble_sort(int *arr , int n){
     for(int i = 0 ; i < n-1 ; i++){
-        swaap;
         for(int j = 0 ; j < (n-i-1); j++){
                 if( arr[j] > arr[j+1]) {
                     int temp = arr[j];
