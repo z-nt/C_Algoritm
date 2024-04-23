@@ -5,60 +5,233 @@
 #include <time.h>
 
 
+/// node structor
+typedef struct Node{
+    int data ;
+    struct Node* next;
+    struct Node* prev;
+}Node;
+
+
+///  fuction to create new node
+Node* createNode(int data){
+    Node* newNode = (Node*) malloc(sizeof(Node));
+    if(!newNode){
+        printf("memory cant alloc addres");
+        exit(1);
+    }
+    newNode->data = data;
+    newNode->next = NULL;
+    newNode->prev = newNode - 1 ;
+    return newNode;
+}
+
+
+// next function for next node
+void printListForward(Node* node){
+    while(node){
+        printf("%d-> " , node->data);
+        node= node->next; 
+    }
+    printf("null\n");
+}
+
+///  prev function for prev node  
+void printListBack(Node* Node){
+    while(Node ){
+        printf("%d-> " , Node->data);
+        Node = Node->prev;
+    }
+    printf("null\n");
+}
+
+
+/// finde lowest node in link list
+
+int findelowest( Node* Node ){
+    int min_val = Node->data;
+    struct Node* curentNode = Node->next;
+    while(curentNode){
+        if(curentNode->data < min_val){
+            min_val = curentNode->data;
+        }
+        curentNode = curentNode->next;
+    }
+    return min_val;
+}
+
+
+/// delet node from link list 
+Node* deletSpecificNode(Node* head , Node* nodeToDelete){
+   
+    if(head == nodeToDelete){
+        Node* newHead = head->next;
+        free(head);
+        return newHead;
+    }
+
+    Node* currentNode = head;
+
+    while(currentNode->next && currentNode->next != nodeToDelete){
+        currentNode = currentNode->next;
+    }
+
+    if(currentNode->next == NULL){
+        return head;
+    }
+
+    Node* temp = currentNode->next;
+    currentNode->next = currentNode->next->next;
+    free(temp);
+
+    return head;
+}
+/// insert new node to node link list 
+Node* insertNode(Node* haed , Node* newNode , int position){
+    if(position == 1){
+        newNode->next = haed;
+        return newNode;
+    }
+
+    Node* currentNode = haed;
+    
+    for(int i = 1 ; i< position - 1 && currentNode != NULL;i++){
+        currentNode = currentNode->next;
+    }
+
+    if(currentNode != NULL){
+        newNode->next = currentNode->next;
+        currentNode->next = newNode;
+    }
+
+    return haed;
+
+}
+
+
 
 int main (void) {
    
+    Node* node1 = createNode(3);
+    Node* node2 = createNode(5);
+    Node* node3 = createNode(6);
+    Node* node4 = createNode(9);
+    
+    Node* curentNode = node1;
+    Node* start = node1;
+
+    node1->prev = NULL;
+    node1->next = node2;
+    node2->prev = node1;
+    node2->next = node3;
+    node3->prev = node2;
+    node3->next = node4;
+    node4->prev = node3;
+    node4->next = NULL;
+ 
+  //  int result = findelowest(node1);
+  //  printf("minmum number in link list: %d \n",result);
+
+    printf("Before deletion:\n");
+    printListForward(node1);
+    
+   // deletSpecificNode(node1,node3);
+    Node* newNode = createNode(97);
+    insertNode(node1,newNode,3);
+
+
+    printf("after deletion:\n");
+    printListForward(node1);
+
+  //  printListBack(node4);
+
+  
+
+  //  printf("%d\n" , curentNode->data);
+    curentNode = curentNode->next;
+    while(curentNode != start){
+        curentNode= curentNode->next;
+    } 
+  //  printf("...\n");
+
+   
+
+
+
+
+    free(node1);
+    free(node2);
+    free(node3);
+    free(node4);
+
+
 
     return 0;
 }
 
 // link list
 
-typedef struct Node{
-    int data ;
-    struct Node* next;
-}Node;
+// ///////////////////// doubl linke list ;
 
 
-Node* createNode(int data){
-    Node* newNode= (Node*)malloc(sizeof(Node));
-    if(!newNode){
-        printf("memory aloocation faild!\n");
-        exit(1);
-    }
-    newNode ->data = data;
-    newNode ->next = NULL;
-    return newNode;
-}
+// typedef struct Node{
+//     int data ;
+//     struct Node* next;
+//     struct Node* prev;
+// }Node;
 
-void printList(Node* node){
-    while(node){
-        printf("%d -> ", node->data);
-        node = node->next;
-    }
-    printf("null\n");
-}
+// Node* createNode(int data){
+//     Node* newNode = (Node*) malloc(sizeof(Node));
+//     if(!newNode){
+//         printf("memory cant alloc addres");
+//         exit(1);
+//     }
+//     newNode->data = data;
+//     newNode->next = NULL;
+//     newNode->prev = newNode - 1 ;
+//     return newNode;
+// }
 
- // Node* node1 = createNode(3);
-    // Node* node2 = createNode(4);
-    // Node* node3 = createNode(5);
-    // Node* node4 = createNode(6);
+// void printListForward(Node* node){
+//     while(node){
+//         printf("%d-> " , node->data);
+//         node= node->next; 
+//     }
+//     printf("null\n");
+// }
 
+
+// void printListBack(Node* Node){
+//     while(Node ){
+//         printf("%d-> " , Node->data);
+//         Node = Node->prev;
+//     }
+//     printf("null\n");
+// }
+
+    // Node* node1 = createNode(3);
+    // Node* node2 = createNode(5);
+    // Node* node3 = createNode(6);
+    // Node* node4 = createNode(9);
+
+    // node1->prev = NULL;
     // node1->next = node2;
+    // node2->prev = node1;
     // node2->next = node3;
+    // node3->prev = node2;
     // node3->next = node4;
-    
+    // node4->prev = node3;
+    // node4->next = NULL;
 
-    // printList(node1);
+
+    // printListForward(node1);
+    // printListBack(node4);
+
 
     // free(node1);
     // free(node2);
     // free(node3);
     // free(node4);
-
-
-
-
 
 
 /// binary search 
