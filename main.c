@@ -393,25 +393,28 @@ void mergeSort(double arr[], int start , int end){
 /// counting sort array
 void counting_sort(int arr[], int n){
     int max_val = arr[0];
-    for(int i = 1 ; i < n ; i++){
-        if(arr[i] > max_val ) max_val = arr[i];
-
-    int count[max_val + 1];
-
-    for(int i = 0;  i < n ; i++){
+    for(int i = 0 ; i < n ;i++){
+        if(arr[i] > max_val){
+            max_val = arr[i];
+        }
+    }
+    int count[max_val+1];
+    for(int i = 0 ; i <= max_val;i++){
         count[i] = 0;
     }
-    for(int i = 0;i <= max_val;i++){
+    for(int i = 0 ; i < n ; i++){
         count[arr[i]]++;
     }
-     int index = 0;
-    for(int i = 0; i <= max_val; i++) {
-        while(count[i] > 0) {
-            arr[index++] = i;
+    int index = 0;
+    for(int i = 0 ; i <= max_val;i++){
+        while(count[i]> 0){
+            arr[index++]=i;
             count[i]--;
         }
     }
-}
+
+
+
 }
 // quicke sort array 
 
@@ -489,7 +492,7 @@ void selection_sort_swap(int *arr , int n){
 
 
 /// slection sort array
-
+//The Selection Sort algorithm finds the lowest value in an array and moves it to the front of the array.
 void selection_sort(int *arr , int n){
     for(int i = 0 ; i < n-1 ; i++){
       int min_index = i;
@@ -514,7 +517,7 @@ void selection_sort(int *arr , int n){
 
 
 
-
+//Bubble Sort is an algorithm that sorts an array from the lowest value to the highest value.
 /// bubble sort in
 void bubble_sort(int *arr , int n){
     for(int i = 0 ; i < n-1 ; i++){
