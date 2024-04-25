@@ -11,7 +11,7 @@
       "cwd": "e:/C_Programming/C_Algoritm",
       "program": "e:/C_Programming/C_Algoritm/build/Debug/outDebug",
       "MIMode": "gdb",
-      "miDebuggerPath": "C:/MinGW/bin/gdb.exe",
+      "miDebuggerPath": "gdb",
       "setupCommands": [
         {
           "description": "Enable pretty-printing for gdb",
