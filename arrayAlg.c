@@ -1,17 +1,92 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
+//DSA Queues
+//A queue is a data structure that can hold many elements.
+#define CAPACITY 10
 
 
+struct Queue{
+    int queue[CAPACITY];
+    int front;
+    int size;
+};
 
-
-
+//enqueue
+void enqueue(struct Queue *q , int element);
+// dequeue
+int dequeue(struct Queue *q);
+void printQueue(struct Queue *q);
+int peekq(struct Queue *q);
+bool isEmptyq(struct Queue *q);
+int sizeq (struct Queue *q);
 int main(void){    
-    
-   
+    struct Queue myqueue ={
+        .front =0,
+        .size = 0
+    };
+    enqueue(&myqueue,'A');
+    enqueue(&myqueue,'B');
+    enqueue(&myqueue,'C');
+    printf("\n");
+    printQueue(&myqueue);
+    //printf("\n");
+    //printf("%c dequeu\n",dequeue(&myqueue));
+    printf("%c peek\n",peekq(&myqueue));
+   // printf("isEmpty: %d\n", isEmptyq(&myqueue));
+    printf("size:%d",sizeq);
 
     return 0;
 }
+//DSA Queues
+//A queue is a data structure that can hold many elements.
 
+//enqueue
+void enqueue(struct Queue *q , int element){
+    if(q->size == CAPACITY){
+        printf("queue is full\n");
+        return ;
+    }
+    q->queue[(q->front + q->size) % CAPACITY] = element;
+    q->size++;
+}
+//dequeue
+
+int dequeue(struct Queue *q){
+    if(q->size == CAPACITY -1 ){
+        printf("queue is Empty\n");
+        return -1;
+    }
+    int item = q->queue[q->front];
+    q->front = (q->front + 1) % CAPACITY;
+    q->size--;
+    return item;
+}
+//peek
+int peekq(struct Queue *q){
+    if(isEmptyq(q)){
+        printf("Queue is Empty!\n");
+        return -1;
+    }
+    return q->queue[q->front];
+}
+
+// isEmpty
+bool isEmptyq(struct Queue *q){
+    return q->size == 0;
+}
+// size 
+int sizeq (struct Queue *q){
+    return q->size;
+}
+
+
+void printQueue(struct Queue *q){
+    for (int i = 0 ; i < q->size ; i++){
+        printf("%c\n",q->queue[(q->front + i) % CAPACITY]);
+    }
+    printf("\n");
+}
 /////////////stack
 typedef struct Stack{
     int *stack;
