@@ -141,8 +141,6 @@ int size(Stack *s){
     return s->top + 1;
 }
 
-
-
 //print stack
 void printStack(Stack *s){
     for(int i = 0 ;i <= s->top ; ++i){
