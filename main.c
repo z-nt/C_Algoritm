@@ -7,11 +7,10 @@
 
 /// node structor
 typedef struct Node{
-    int data ;
+    int *data;
     struct Node* next;
     struct Node* prev;
 }Node;
-
 
 ///  fuction to create new node
 Node* createNode(int data){
@@ -87,13 +86,13 @@ Node* deletSpecificNode(Node* head , Node* nodeToDelete){
     return head;
 }
 /// insert new node to node link list 
-Node* insertNode(Node* haed , Node* newNode , int position){
+Node* insertNode(Node* head , Node* newNode , int position){
     if(position == 1){
-        newNode->next = haed;
+        newNode->next = head;
         return newNode;
     }
 
-    Node* currentNode = haed;
+    Node* currentNode = head;
     
     for(int i = 1 ; i< position - 1 && currentNode != NULL;i++){
         currentNode = currentNode->next;
@@ -104,7 +103,7 @@ Node* insertNode(Node* haed , Node* newNode , int position){
         currentNode->next = newNode;
     }
 
-    return haed;
+    return head;
 
 }
 
