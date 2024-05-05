@@ -3,10 +3,6 @@
 #include <curlver.h>
 #include <C:\MinGW\include\curl.h>
 
-
-
-
-
 int main(void){
   
     CURL *curl;
