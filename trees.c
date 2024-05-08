@@ -31,6 +31,16 @@ void pre_orderTeraversal(TreeNode* root){
 }
 
 
+/*in order traversal trees*/
+void in_orderTeraversal(TreeNode* root){
+    if(root == NULL){
+        return;
+    }
+    in_orderTeraversal(root->left);
+    printf("%c, ", root->data);
+    in_orderTeraversal(root->right);
+}
+
 
 
 
@@ -61,8 +71,9 @@ int main(){
 
 
     printf("root->right->left->data: %c\n",root->right->left->data);
-    pre_orderTeraversal(root);
-
+   // pre_orderTeraversal(root);
+    in_orderTeraversal(root);
+    
     free(nodeG);
     free(nodeF);
     free(nodeE);
