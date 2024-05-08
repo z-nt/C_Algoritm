@@ -1,13 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-///trees in algorithm 
+/*trees data structure*/
+//create struct node
 typedef struct  TreeNode {
     char data;
     struct TreeNode* left;
     struct TreeNode* right;
 }TreeNode;
 
+//crete new node of node struct and pass data
 TreeNode* createNode(char data){
     TreeNode* newNode = (TreeNode*)calloc(sizeof(TreeNode),100);
     newNode->data = data;
@@ -15,6 +17,22 @@ TreeNode* createNode(char data){
     newNode->right = NULL;
     return newNode;
 }
+
+///pre _order traversal function
+/// is going up to down from left
+
+void pre_orderTeraversal(TreeNode* root){
+    if(root == NULL){
+        return;
+    }
+    printf("%c,",root->data);
+    pre_orderTeraversal(root->left);
+    pre_orderTeraversal(root->right);
+}
+
+
+
+
 
 
 int main(){
@@ -43,6 +61,7 @@ int main(){
 
 
     printf("root->right->left->data: %c\n",root->right->left->data);
+    pre_orderTeraversal(root);
 
     free(nodeG);
     free(nodeF);
