@@ -41,13 +41,25 @@ void in_orderTeraversal(TreeNode* root){
     in_orderTeraversal(root->right);
 }
 
+/*post order traversa trees*/
+void post_orderTeraversal(TreeNode* root){
+    if(root == NULL){
+        return;
+    }
+    post_orderTeraversal(root->left);
+    post_orderTeraversal(root->right);
+    printf("%c,",root->data);
+}
+
+
+
+
+
 
 
 
 
 int main(){
-
-
     TreeNode* root = createNode('R');
     TreeNode* nodeA = createNode('A');
     TreeNode* nodeB = createNode('B');
@@ -70,10 +82,13 @@ int main(){
     nodeF->left = nodeG;
 
 
-    printf("root->right->left->data: %c\n",root->right->left->data);
-   // pre_orderTeraversal(root);
+   // printf("root->right->left->data: %c\n",root->right->left->data);
+    pre_orderTeraversal(root);
+    printf("\n");
     in_orderTeraversal(root);
-    
+    printf("\n");
+    post_orderTeraversal(root);
+
     free(nodeG);
     free(nodeF);
     free(nodeE);
