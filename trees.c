@@ -50,6 +50,7 @@ void post_orderTeraversal(TreeNode* root){
     post_orderTeraversal(root->right);
     printf("%c,",root->data);
 }
+/*array implementation of binary trees*/
 
 
 
