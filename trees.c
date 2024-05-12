@@ -51,57 +51,62 @@ void post_orderTeraversal(TreeNode* root){
     printf("%c,",root->data);
 }
 /*array implementation of binary trees*/
+char* get_data (char binary_treeArray[],int index);
+int left_index(int index);
+int right_index(int index);
 
 
-
-
+#define Array_size 15
 
 
 
 
 
 int main(){
-    TreeNode* root = createNode('R');
-    TreeNode* nodeA = createNode('A');
-    TreeNode* nodeB = createNode('B');
-    TreeNode* nodeC = createNode('C');
-    TreeNode* nodeD = createNode('D');
-    TreeNode* nodeE = createNode('E');
-    TreeNode* nodeF = createNode('F');
-    TreeNode* nodeG = createNode('G');
+char binary_Trees[Array_size] =  {'R', 'A', 'B', 'C', 'D', 'E', 'F', '\0', '\0', '\0', '\0', '\0', '\0', 'G', '\0'};
+    int right_child = right_index(0);
+    int left_child = left_index(right_child);
 
-    root->left = nodeA;
-    root->right = nodeB;
+    char* data = get_data(binary_Trees,left_child);
 
 
-    nodeA->left =  nodeC;
-    nodeA->right = nodeD;
+    if(data != NULL){
+        printf("root->right,left->data:%s\n",data);
+    }else{
+        printf("it is null stuped");
+    }
 
-    nodeB->left = nodeE;
-    nodeB->right = nodeF;
-
-    nodeF->left = nodeG;
-
-
-   // printf("root->right->left->data: %c\n",root->right->left->data);
-    pre_orderTeraversal(root);
-    printf("\n");
-    in_orderTeraversal(root);
-    printf("\n");
-    post_orderTeraversal(root);
-
-    free(nodeG);
-    free(nodeF);
-    free(nodeE);
-    free(nodeB);
-    free(nodeC);
-    free(nodeD);
-    free(nodeA);
-    free(root);
 
 
     return 0;
 }
+
+
+
+/*array implementation of binary trees*/
+char* get_data (char binary_treeArray[],int index){
+    if(index >= 0 && index  <  Array_size){
+        return &binary_treeArray[index];
+    }
+}
+int left_index(int index){
+    return 2 * index + 1;
+}
+int right_index(int index){
+    return 2 * index + 2;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
