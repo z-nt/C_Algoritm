@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #define SIZE 4
+#define NO_EDGE -1 
 
 
 typedef struct graphs
@@ -12,16 +13,15 @@ typedef struct graphs
 void initgraph(graphs *g){
     for(int i = 0 ; i < SIZE ; i++){
             for(int j = 0 ; j < SIZE ; j++){
-                g->adjecencyMatrix[i][j] = 0;
+                g->adjecencyMatrix[i][j] = NO_EDGE;
             }
             g->vertexdata[i] = 0;
     }
 }
 
-void addEdge (graphs *g , int u , int v){
+void addEdge (graphs *g , int u , int v,int weigth){
     if(u >= 0 && u < SIZE  && v >= 0 && v < SIZE){
-        g->adjecencyMatrix[u][v] = 1;
-        g->adjecencyMatrix[v][u] = 1;
+        g->adjecencyMatrix[u][v] = weigth;
     }
 }
 
@@ -35,7 +35,11 @@ void printfAddjacencyMatrix(graphs*g){
     printf("adjacencyMatrix:\n");
     for(int i = 0 ; i < SIZE ; i++){
         for(int j = 0 ; j < SIZE ; j++){
-            printf("%d",g->adjecencyMatrix[i][j]);
+           if(g->adjecencyMatrix[i][j]==NO_EDGE){
+            printf("0 ");
+           }else{
+             printf("%d ",g->adjecencyMatrix[i][j]);
+           }
         }
         printf("\n");
     }
@@ -89,11 +93,15 @@ int main(void){
   addvertexData(&G,2,'C');
   addvertexData(&G,3,'D');
 
+/// 0 3 2 4
+/// 0 0 1 0
+/// 0 0 0 0
+/// 0 0 0 0
 
-  addEdge(&G,0,1);
-  addEdge(&G,0,2);
-  addEdge(&G,0,3);
-  addEdge(&G,1,2);
+  addEdge(&G,0,1,3);
+  addEdge(&G,0,2,2);
+  addEdge(&G,0,3,4);
+  addEdge(&G,1,2,1);
 
   printfAddjacencyMatrix(&G);
   
