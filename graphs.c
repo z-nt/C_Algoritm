@@ -1,7 +1,7 @@
 #include <stdio.h>
-
-#define SIZE 4
-#define NO_EDGE -1 
+#include <stdlib.h>
+#include <stdbool.h>
+#define SIZE 7
 
 
 typedef struct graphs
@@ -13,15 +13,16 @@ typedef struct graphs
 void initgraph(graphs *g){
     for(int i = 0 ; i < SIZE ; i++){
             for(int j = 0 ; j < SIZE ; j++){
-                g->adjecencyMatrix[i][j] = NO_EDGE;
+                g->adjecencyMatrix[i][j] = 0;
             }
-            g->vertexdata[i] = 0;
+            g->vertexdata[i] = '\0';
     }
 }
 
-void addEdge (graphs *g , int u , int v,int weigth){
+void addEdge (graphs *g , int u , int v){
     if(u >= 0 && u < SIZE  && v >= 0 && v < SIZE){
-        g->adjecencyMatrix[u][v] = weigth;
+        g->adjecencyMatrix[u][v] = 1;
+        g->adjecencyMatrix[v][u] = 1;
     }
 }
 
@@ -35,11 +36,7 @@ void printfAddjacencyMatrix(graphs*g){
     printf("adjacencyMatrix:\n");
     for(int i = 0 ; i < SIZE ; i++){
         for(int j = 0 ; j < SIZE ; j++){
-           if(g->adjecencyMatrix[i][j]==NO_EDGE){
-            printf("0 ");
-           }else{
              printf("%d ",g->adjecencyMatrix[i][j]);
-           }
         }
         printf("\n");
     }
@@ -51,36 +48,33 @@ void printfAddjacencyMatrix(graphs*g){
     }
 }
 
+void dfsutil(graphs *g , int v , bool visited[]){
+        visited[v] = true;
+        printf("%c ",g->vertexdata[v]);
+
+     for(int i = 0 ; i < SIZE ; i ++){
+        if(g->adjecencyMatrix[v][i] == 1 && !visited[i]){
+            dfsutil(g,i,visited);
+        }
+     }
+}
+
+void dfs(graphs *g , char vertexDate){
+    bool visited[SIZE] = {false};
+    int startVertex = -1;
+
+    for(int i = 0 ; i < SIZE ; i++){
+        if(g->vertexdata[i] == vertexDate){
+            startVertex = i;
+            break;
+        }
+    }
+        if(startVertex != -1){
+            dfsutil(g,startVertex,visited);
+        }
+}
 
 
-
-// void printgraphs(int matrix[4][4],int size){
-//     for(int i = 0 ; i < size ; i++){
-//             for(int j = 0 ; j < size ; j++){
-//                 printf("%d",matrix[i][j]);
-//             }
-//             printf("\n");
-//     }
-// }
-
-// void printContection(int matrix[4][4] , char vertexdata[4] , int size){
-
-//     for(int i = 0 ; i < size ; i++){
-//         printf("%c: ",vertexdata[i]);
-//         for(int j = 0 ; j < size ; j++){
-//             if (matrix[i][j])
-//             {
-//                 printf("%c  " ,vertexdata[j]);
-//             }
-            
-//         }
-//         printf("\n");
-//     }
-
-
-
-
-// }
 
 
 
@@ -92,30 +86,26 @@ int main(void){
   addvertexData(&G,1,'B');
   addvertexData(&G,2,'C');
   addvertexData(&G,3,'D');
+  addvertexData(&G,4,'E');
+  addvertexData(&G,5,'F');
+  addvertexData(&G,6,'G');
 
-/// 0 3 2 4
-/// 0 0 1 0
-/// 0 0 0 0
-/// 0 0 0 0
 
-  addEdge(&G,0,1,3);
-  addEdge(&G,0,2,2);
-  addEdge(&G,0,3,4);
-  addEdge(&G,1,2,1);
+  addEdge(&G,3,0);
+  addEdge(&G,0,2);
+  addEdge(&G,0,3);
+  addEdge(&G,0,4);
+  addEdge(&G,4,2);
+  addEdge(&G,2,5);
+  addEdge(&G,2,1);
+  addEdge(&G,2,6);
+  addEdge(&G,1,5);
 
   printfAddjacencyMatrix(&G);
-  
-  
-    // char vertexData[4] = {'A','B','C','D'};
-    // int matrix[4][4] = {
-    //     {1,1,1,1},
-    //     {1,1,1,0},
-    //     {1,1,0,0},
-    //     {1,0,1,1}
-    // };
 
-    // printgraphs(matrix,4);
-    // printContection(matrix,vertexData,4);
+    printf("\n");
+    printf("depth frist  search in graphs:\n");
+    dfs(&G,'D');
 
     return 0;
 }
