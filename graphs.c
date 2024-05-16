@@ -6,12 +6,15 @@
 typedef struct GRAPH{
     int **adjacentM;
     char *vertexData;
+    int *parent;
     int size;
 }GRAPH;
 
 
 GRAPH* create_graph(int size ){
+    //create new graph
     GRAPH *newgraph = calloc(size,sizeof(GRAPH));
+    
     newgraph->size = size;
 
     newgraph->adjacentM = calloc(size,sizeof(int *));
@@ -21,12 +24,23 @@ GRAPH* create_graph(int size ){
     }
     newgraph->vertexData = calloc(size , sizeof(char));
 
+    for(int i = 0 ; i < size ; i++){
+        newgraph->vertexData[i] = '\0';
+    }
+
+    newgraph->parent=calloc(size,sizeof(int));
+    for(int i = 0 ; i < size;i++){
+        newgraph->parent[i] = i;
+    }
+
+
     return newgraph;
 }
 
 void add_edge(GRAPH *g , int u , int v){
     if(u >= 0 && u < g->size && v >= 0 && v < g->size){
         g->adjacentM[u][v] = 1;
+        g->adjacentM[v][u] = 1;
     }
 }
 
@@ -35,6 +49,51 @@ void add_vertex_data(GRAPH *g,char vertex_data,int vertex){
         g->vertexData[vertex] = vertex_data;
     }
 }
+
+int find(GRAPH*g , int i ){
+    if(g->parent[i] == i){
+        return i;
+    }
+    return find(g,g->parent[i]);
+}
+
+void union_vertices(GRAPH *g,int x , int y){
+    int xRoot = find(g,x);
+    int yRoot = find (g,y);
+    printf("%c + %c \n",g->vertexData[x],g->vertexData[y]);
+    g->parent[xRoot] = yRoot;
+}
+
+bool is_cycle(GRAPH *g){
+    for(int i = 0 ; i < g->size ; i++){
+        for(int j = i + 1; j < g->size ; j++){
+            if(g->adjacentM[i][j]){
+                int x = find(g,i);
+                int y = find(g,j);
+                if(x == y){
+                    return true;
+                }
+                union_vertices(g,x,y);
+            }
+        }
+    }
+    return false;
+}
+
+void free_graph(GRAPH *g){
+    for(int i = 0 ; i < g->size ; i++){
+        free(g->adjacentM[i]);
+    }
+
+    free(g->adjacentM);
+    free(g->parent);
+    free(g->vertexData);
+    free(g);
+
+
+}
+
+
 
 void print_graph(GRAPH *g){
     printf("adjacent Matrix:\n");
@@ -168,20 +227,23 @@ int main(void){
     add_edge(g,1,2);
 
     print_graph(g);
-    printf("\n");
-    printf("depth frist  search in graphs:\n");
-    dfs(g,'D');
+    // printf("\n");
+    // printf("depth frist  search in graphs:\n");
+    // dfs(g,'D');
 
 
 
 
-    printf("\n");
-    printf("breath frist  search in graphs:\n");
-    bfs(g,'D');
+    // printf("\n");
+    // printf("breath frist  search in graphs:\n");
+    // bfs(g,'D');
 
 
 
     printf("graph has cycle : %s\n",isCyclic(g) ? "YES":"NO");
+   
+    free_graph(g);
+   
     return 0;
 }
 
