@@ -48,6 +48,7 @@ void printfAddjacencyMatrix(graphs*g){
     }
 }
 
+///depth frist search {stack}
 void dfsutil(graphs *g , int v , bool visited[]){
         visited[v] = true;
         printf("%c ",g->vertexdata[v]);
@@ -73,8 +74,35 @@ void dfs(graphs *g , char vertexDate){
             dfsutil(g,startVertex,visited);
         }
 }
+/// breadth frist search {queue}
 
-
+void bfs(graphs *g   , char startvertexdata){
+    bool visited[SIZE] = {false};
+    int startvertex = -1;
+    int queue[SIZE] , startqueu = 0 , endqueue = 0;
+   //check start data 
+    for(int i = 0 ; i < SIZE ; i++){
+        if(g->vertexdata[i] == startvertexdata){
+            startvertex = i ;
+            break;
+        }
+    }
+    //
+    if(startvertex != -1){
+        queue[endqueue++] = startvertex;
+        visited[startvertex] = true;
+        while(startqueu < endqueue){
+            int currentvertex = queue[startqueu++];
+            printf("%c ",g->vertexdata[currentvertex]);
+            for(int i = 0 ; i < SIZE ; i++){
+                if(g->adjecencyMatrix[currentvertex][i] == 1 && !visited[i]){
+                    queue[endqueue++] = i ;
+                    visited[i] = true;
+                }
+            }
+        }
+    }
+}
 
 
 
@@ -106,6 +134,10 @@ int main(void){
     printf("\n");
     printf("depth frist  search in graphs:\n");
     dfs(&G,'D');
+
+    printf("\n");
+    printf("breath frist  search in graphs:\n");
+    bfs(&G,'D');
 
     return 0;
 }
