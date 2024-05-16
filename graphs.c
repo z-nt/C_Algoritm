@@ -79,7 +79,6 @@ void dfs(GRAPH *g , char startvertex ){
     free(visited);    
 }
 ///function bfs 
-
 void bfs (GRAPH *g , char start_vertex_data){
     bool *visited = calloc(g->size,sizeof(bool));
     int  *queue = calloc(g->size,sizeof(int));
@@ -110,20 +109,38 @@ void bfs (GRAPH *g , char start_vertex_data){
                     visited[i]  = true;
                 }
             }
-
-
         }
-
     free(visited);
     free(queue);
-
-
     }
+}
+///dfs function for cycle
+bool dfs_utilitis(GRAPH *g,int v , bool visited[],int parent){
+    visited[v] = true;
+    for(int i = 0 ; i < g->size ; i++){
+        if(g->adjacentM[v][i] == 1){
+            if(!visited[i]){
+                if(dfs_utilitis(g,i,visited,v)){
+                    return true;
+                }
+            }else if(i != parent){
+                return true;
+            }
+        }
+        return false;
+    }
+}
 
-
-
-
-
+bool isCyclic(GRAPH *g){
+    bool visited[SIZE] = {false};
+    for(int i = 0 ; i < SIZE ; i++){
+        if(!visited[i]){
+            if(dfs_utilitis(g,i,visited,-1)){
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 
@@ -161,6 +178,10 @@ int main(void){
     printf("\n");
     printf("breath frist  search in graphs:\n");
     bfs(g,'D');
+
+
+
+    printf("graph has cycle : %s\n",isCyclic(g) ? "YES":"NO");
     return 0;
 }
 
