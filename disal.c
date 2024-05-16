@@ -27,6 +27,7 @@ graph* create_graph(int size){
 void add_edg(graph *g , int u , int v , int weigth){
     if(u >=0 && u < g->size && v >= 0 && v < g->size){
         g->adjucentm[u][v] = weigth;
+        g->adjucentm[v][u] = weigth;
     }
 }
 
@@ -86,6 +87,57 @@ void dikstra(graph *g , char vertex_start_data){
     }
 }
 
+void dijkstra_procedec(graph *g , int start_vertex, 
+                        int *distances,int *predecessors)
+{
+    int visited[g->size];
+    for(int i = 0 ; i < g->size;i++){
+        distances[i] = __INT_MAX__;
+        visited[i] = 0;
+        predecessors[i]=-1;
+    }
+
+    distances[start_vertex] = 0;
+
+    for(int count = 0 ; count < g->size -1 ; count++){
+        int min = __INT_MAX__,min_index;
+        for(int v = 0 ; v < g->size ; v++){
+            if(!visited[v] && distances[v] <= min){
+                min = distances[v];
+                min_index = v;
+            }
+        }
+        int u = min_index;
+        visited[u] = 1;
+        for(int v = 0 ; v < g->size ; v++){
+            if(!visited[v] && g->adjucentm[u][v] && distances[u]
+            != __INT_MAX__ && distances[u] + g->adjucentm[u][v] < distances[v]
+            ){
+            distances[v] = distances[u] + g->adjucentm[u][v];
+            predecessors[v] = u;
+            }
+        }
+    }
+}
+void print_path(graph *g , int *predec , int start_vertex , int end_vertex){
+    int stack[g->size];
+    int top = -1;
+    int current = end_vertex;
+    while(current != -1){
+        stack[top++] = current;
+        current = predec[current];
+    }
+
+    while(top != -1){
+        printf("%c" , g->vertext_data[stack[top--]]);
+        if(top != -1) printf("->");
+    }
+}
+
+
+
+
+
 void free_graph(graph *g){
     for(int i = 0 ; i < g->size; i++){
         free(g->adjucentm[i]);
@@ -119,8 +171,17 @@ add_edg(G,1,2,2);
 add_edg(G,1,5,2);
 add_edg(G,6,5,5);
 
+int distance[G->size];
+int predecessors[G->size];
+dijkstra_procedec(G,3,distance,predecessors);
 printf("Dikstra Algorithm starting from vertex D:\n\n");
-dikstra(G,'D');
+
+for(int i = 0 ; i < G->size ; i++){
+    print_path(G,predecessors,3,distance[i]);
+    printf(" , distance: %d\n",distance[i]);
+}
+
+
 free_graph(G);
    
     return 0;
